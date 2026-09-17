@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jhones Sandro | Cartão Digital & Soluções Comerciais</title>
-  <meta name="description" content="Desenvolvedor de soluções comerciais para São Miguel Paulista e Região. Páginas de alta conversão, cardápios e agendamentos pelo WhatsApp.">
+  <title>JS Web & Negócios | Soluções Comerciais & Digitais</title>
+  <meta name="description" content="JS Web & Negócios - Desenvolvimento de soluções comerciais para São Miguel Paulista e Região. Páginas de alta conversão, cardápios e agendamentos pelo WhatsApp.">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -67,12 +67,15 @@
       </div>
 
       <!-- Name & Bio -->
+      <div class="inline-flex items-center gap-1.5 px-3.5 py-1 mb-2.5 rounded-full text-xs font-black bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 tracking-wider uppercase shadow-sm">
+        <span>🚀 JS Web & Negócios</span>
+      </div>
       <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-1.5">
         Jhones Sandro
         <svg class="w-5 h-5 text-indigo-400 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
       </h1>
       <p class="text-xs font-semibold uppercase tracking-wider text-indigo-400 mt-1">
-        Desenvolvedor Web • Soluções Locais
+        Fundador & Desenvolvedor Web
       </p>
       
       <!-- Region Badge -->
@@ -88,7 +91,7 @@
       <!-- Primary Action: WhatsApp Direct -->
       <div class="w-full mt-6 space-y-3">
         <a 
-          href="https://wa.me/5511954532927?text=Ol%C3%A1%20Jhones%2C%20vi%20seu%20cart%C3%A3o%20digital%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20o%20meu%20neg%C3%B3cio!" 
+          href="https://wa.me/5511954532927?text=Ol%C3%A1%20Jhones%2C%20vi%20o%20cart%C3%A3o%20da%20JS%20Web%20%26%20Neg%C3%B3cios%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20o%20meu%20neg%C3%B3cio!" 
           target="_blank" 
           rel="noopener noreferrer"
           class="w-full flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-xl font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] transition-all duration-150 shadow-lg shadow-emerald-900/40"
@@ -176,7 +179,7 @@
       <!-- Footer Info -->
       <footer class="mt-8 pt-6 border-t border-slate-800/80 w-full text-center">
         <p class="text-[11px] text-slate-500">
-          © 2026 Jhones Sandro • Feito sob medida para negócios locais.
+          © 2026 JS Web & Negócios • Jhones Sandro • Feito sob medida para negócios locais.
         </p>
       </footer>
 
@@ -212,10 +215,11 @@
       const vcardData = [
         'BEGIN:VCARD',
         'VERSION:3.0',
-        'FN:Jhones Sandro - Dev Soluções Locais',
-        'TITLE:Desenvolvedor Web',
+        'FN:Jhones Sandro - JS Web & Negócios',
+        'ORG:JS Web & Negócios',
+        'TITLE:Fundador & Desenvolvedor Web',
         'TEL;TYPE=CELL,VOICE:+5511954532927',
-        'NOTE:Desenvolvimento de cardápios, páginas e agendamentos para comércios locais (São Miguel Paulista)',
+        'NOTE:JS Web & Negócios - Soluções digitais para comércios locais (São Miguel Paulista e Região)',
         'URL:https://cartao-visita-jhou.vercel.app',
         'END:VCARD'
       ].join('\r\n');
@@ -224,7 +228,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'Jhones_Sandro_Dev.vcf';
+      a.download = 'JS_Web_Negocios_Jhones.vcf';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -236,8 +240,8 @@
     // Compartilhamento com Fallback para Copiar Link
     async function shareCard() {
       const shareData = {
-        title: 'Jhones Sandro - Cartão Digital',
-        text: 'Conheça as soluções web de Jhones Sandro para comércios locais e prestadores de serviços!',
+        title: 'JS Web & Negócios - Jhones Sandro',
+        text: 'Conheça a JS Web & Negócios: soluções web de Jhones Sandro para comércios locais e prestadores de serviços!',
         url: window.location.href
       };
 
