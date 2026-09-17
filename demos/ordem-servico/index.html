@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina AutoTech | Consulta de Ordem de Serviço & Status</title>
+  <meta name="description" content="Acompanhe em tempo real o andamento do serviço do seu veículo. Digite a placa ou número da OS.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen pb-16 selection:bg-amber-500 selection:text-black">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 z-50 flex flex-col gap-2 pointer-events-none transition-all duration-300 w-full max-w-xs px-4 left-1/2 -translate-x-1/2" role="status" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-30 glass border-b border-slate-800">
+    <div class="max-w-xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/" class="p-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition" title="Voltar ao Portfólio de Jhones Sandro">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </a>
+        <div>
+          <h1 class="text-base font-bold text-white flex items-center gap-1.5">
+            🔧 AutoTech Premium
+          </h1>
+          <p class="text-xs text-amber-400/90 font-medium">Oficina Mecânica & Centro Automotivo</p>
+        </div>
+      </div>
+
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Sistema Online
+      </span>
+    </div>
+  </header>
+
+  <!-- Container Principal -->
+  <main class="max-w-xl mx-auto px-4 mt-6 space-y-5">
+
+    <!-- Caixa de Busca -->
+    <div class="glass-card p-5 rounded-3xl shadow-xl">
+      <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">Digite a Placa ou Número da OS</label>
+      <div class="flex gap-2">
+        <input type="text" id="inputPlaca" placeholder="Ex: ABC-1234 ou 1042" 
+               class="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-3 text-sm font-mono tracking-wider uppercase focus:outline-none focus:border-amber-400 text-white placeholder-slate-500 transition">
+        <button onclick="buscarOS()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black px-5 rounded-xl text-xs transition active:scale-95 shadow-md shadow-amber-500/20 shrink-0">
+          Buscar
+        </button>
+      </div>
+
+      <div class="mt-3 flex items-center justify-between text-[11px] text-slate-400">
+        <span>Testar placas de exemplo:</span>
+        <div class="flex gap-2">
+          <button type="button" class="text-amber-400 font-mono font-bold cursor-pointer hover:underline" onclick="preencherEBuscar('ABC-1234')">ABC-1234</button>
+          <span class="text-slate-600">•</span>
+          <button type="button" class="text-amber-400 font-mono font-bold cursor-pointer hover:underline" onclick="preencherEBuscar('XYZ-9876')">XYZ-9876</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resultado do Status -->
+    <div id="resultadoBox" class="glass-card p-5 rounded-3xl shadow-xl space-y-5">
+      
+      <!-- Detalhes do Veículo e Badge -->
+      <div class="flex justify-between items-start border-b border-slate-800 pb-3">
+        <div>
+          <span class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Veículo do Cliente</span>
+          <h2 class="text-base font-extrabold text-white" id="carroNome">Honda Civic 2.0 EXL (2021)</h2>
+          <span class="text-xs font-mono text-amber-400 font-bold" id="carroPlaca">Placa: ABC-1234 • OS: #1042</span>
+        </div>
+        <span id="badgeStatus" class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/80 text-[11px] font-extrabold px-3 py-1 rounded-full shadow-sm">
+          Pronto p/ Retirada
+        </span>
+      </div>
+
+      <!-- Stepper / Linha do Tempo -->
+      <div class="space-y-3">
+        <span class="text-xs font-bold text-slate-300 block uppercase tracking-wider text-[11px]">Histórico de Andamento:</span>
+        <div class="space-y-2.5 text-xs" id="listaEtapas">
+          <!-- Renderizado via JS -->
+        </div>
+      </div>
+
+      <!-- Resumo Financeiro / Laudo -->
+      <div class="bg-slate-950/80 p-3.5 rounded-2xl border border-slate-800 text-xs space-y-1.5">
+        <div class="flex justify-between text-slate-400">
+          <span>Orçamento Aprovado:</span>
+          <span class="text-white font-bold" id="valorOrcamento">R$ 840,00</span>
+        </div>
+        <div class="flex justify-between text-slate-400">
+          <span>Mecânico Responsável:</span>
+          <span class="text-slate-200 font-medium" id="mecanicoResp">Marcio (Box 02)</span>
+        </div>
+      </div>
+
+      <!-- Botão de Ação Direta no WhatsApp -->
+      <a id="btnWhatsappAcao" href="https://wa.me/5511954532927?text=Ol%C3%A1!%20Consultei%20a%20placa%20ABC-1234%20no%20site%20e%20estou%20a%20caminho%20para%20retirar%20o%20ve%C3%ADculo." target="_blank"
+         class="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3.5 rounded-2xl transition flex items-center justify-center gap-2 text-xs shadow-lg shadow-emerald-500/20 active:scale-95">
+        <span>💬 Falar com o Consultor no WhatsApp</span>
+      </a>
+
+      <!-- Botão Voltar para o Cartão de Jhones -->
+      <div class="pt-2 border-t border-slate-800/60">
+        <a href="/" class="block text-center text-xs text-slate-400 hover:text-white transition font-medium">
+          ← Voltar ao Portfólio de Jhones Sandro
+        </a>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // Banco de dados demonstrativo de Ordens de Serviço
+    const databaseOS = {
+      'ABC1234': {
+        placa: 'ABC-1234',
+        os: '1042',
+        veiculo: 'Honda Civic 2.0 EXL (2021)',
+        status: 'Pronto p/ Retirada',
+        statusColor: 'bg-emerald-950/80 text-emerald-400 border-emerald-800/80',
+        orcamento: 'R$ 840,00',
+        mecanico: 'Marcio (Box 02)',
+        msgWhatsApp: 'Olá! Consultei a placa ABC-1234 no site e estou a caminho para retirar o veículo.',
+        etapas: [
+          { texto: '1. Veículo recebido e checklist inicial', concluido: true },
+          { texto: '2. Diagnóstico eletrônico e suspensão', concluido: true },
+          { texto: '3. Substituição de pastilhas e fluído', concluido: true },
+          { texto: '4. Teste de rodagem e higienização cortesia', concluido: true }
+        ]
+      },
+      'XYZ9876': {
+        placa: 'XYZ-9876',
+        os: '1043',
+        veiculo: 'Toyota Corolla XEi 2.0 (2022)',
+        status: 'Em Manutenção',
+        statusColor: 'bg-amber-950/80 text-amber-400 border-amber-800/80',
+        orcamento: 'R$ 1.250,00',
+        mecanico: 'Roberto (Box 04)',
+        msgWhatsApp: 'Olá! Consultei a OS #1043 (placa XYZ-9876) e gostaria de saber a previsão de liberação.',
+        etapas: [
+          { texto: '1. Entrada na oficina e desmontagem', concluido: true },
+          { texto: '2. Alinhamento de cabeçote e retífica', concluido: true },
+          { texto: '3. Instalação de juntas e correia dentada', concluido: 'andamento' },
+          { texto: '4. Montagem final e testes em bancada', concluido: false }
+        ]
+      }
+    };
+
+    // Toasts Flutuantes sem alert()
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const icon = type === 'success' ? '✅' : 'ℹ️';
+      const bgColor = type === 'success' ? 'bg-slate-900 border-emerald-500/50 text-emerald-300' : 'bg-slate-900 border-amber-500/50 text-amber-300';
+      
+      toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl shadow-black/80 text-sm font-medium transform transition-all duration-300 opacity-0 -translate-y-2 pointer-events-auto ${bgColor}`;
+      toast.innerHTML = `<span>${icon}</span><span class="flex-1">${message}</span>`;
+      
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', '-translate-y-2');
+      });
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    function renderOSData(data) {
+      document.getElementById('carroNome').textContent = data.veiculo;
+      document.getElementById('carroPlaca').textContent = `Placa: ${data.placa} • OS: #${data.os}`;
+      
+      const badge = document.getElementById('badgeStatus');
+      badge.textContent = data.status;
+      badge.className = `${data.statusColor} text-[11px] font-extrabold px-3 py-1 rounded-full shadow-sm border`;
+
+      document.getElementById('valorOrcamento').textContent = data.orcamento;
+      document.getElementById('mecanicoResp').textContent = data.mecanico;
+
+      // WhatsApp Link
+      const btnZap = document.getElementById('btnWhatsappAcao');
+      const whatsappNumber = '5511954532927';
+      btnZap.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(data.msgWhatsApp)}`;
+
+      // Etapas
+      const lista = document.getElementById('listaEtapas');
+      lista.innerHTML = data.etapas.map(etapa => {
+        if (etapa.concluido === true) {
+          return `
+            <div class="flex items-center gap-2.5 text-emerald-400 font-semibold">
+              <span class="w-5 h-5 rounded-full bg-emerald-950 border border-emerald-700 flex items-center justify-center text-[10px] font-bold">✓</span>
+              <span>${etapa.texto}</span>
+            </div>
+          `;
+        } else if (etapa.concluido === 'andamento') {
+          return `
+            <div class="flex items-center gap-2.5 text-amber-400 font-bold">
+              <span class="w-5 h-5 rounded-full bg-amber-950 border border-amber-700 flex items-center justify-center text-[10px] font-bold animate-pulse">⏳</span>
+              <span>${etapa.texto} (Em Andamento)</span>
+            </div>
+          `;
+        } else {
+          return `
+            <div class="flex items-center gap-2.5 text-slate-500 font-medium">
+              <span class="w-5 h-5 rounded-full bg-slate-900 border border-slate-700 flex items-center justify-center text-[10px]">○</span>
+              <span>${etapa.texto}</span>
+            </div>
+          `;
+        }
+      }).join('');
+    }
+
+    function buscarOS() {
+      const input = document.getElementById('inputPlaca');
+      const rawVal = input.value.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+      if (!rawVal) {
+        showToast('Por favor, digite uma placa ou número da OS.', 'info');
+        input.focus();
+        return;
+      }
+
+      // Procura por placa ou número da OS
+      let found = null;
+      for (const key in databaseOS) {
+        if (key === rawVal || databaseOS[key].os === rawVal || databaseOS[key].placa.replace('-', '') === rawVal) {
+          found = databaseOS[key];
+          break;
+        }
+      }
+
+      if (found) {
+        renderOSData(found);
+        showToast(`Ordem de serviço #${found.os} localizada!`, 'success');
+      } else {
+        showToast('Nenhuma OS ativa encontrada para essa placa. Tente ABC-1234 ou XYZ-9876.', 'info');
+      }
+    }
+
+    function preencherEBuscar(placa) {
+      document.getElementById('inputPlaca').value = placa;
+      buscarOS();
+    }
+
+    // Inicializa com a primeira placa de exemplo
+    renderOSData(databaseOS['ABC1234']);
+  </script>
+</body>
+</html>

@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/demos/cardapio", "destination": "/demos/cardapio/index.html" },
-    { "source": "/demos/barbearia", "destination": "/demos/barbearia/index.html" }
+    { "source": "/demos/barbearia", "destination": "/demos/barbearia/index.html" },
+    { "source": "/demos/ordem-servico", "destination": "/demos/ordem-servico/index.html" }
   ]
 }
