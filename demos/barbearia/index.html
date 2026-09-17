@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barbearia Dom Sandro | Agendamento Online</title>
+  <meta name="description" content="Agendamento rápido e descomplicado para barbearia. Escolha seu serviço, horário e confirme direto pelo WhatsApp.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            gold: {
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(20, 20, 24, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(15, 15, 18, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+    }
+  </style>
+</head>
+<body class="bg-neutral-950 text-neutral-100 min-h-screen pb-16 selection:bg-amber-500 selection:text-black">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 z-50 flex flex-col gap-2 pointer-events-none transition-all duration-300 w-full max-w-xs px-4 left-1/2 -translate-x-1/2" role="status" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="sticky top-0 z-30 glass border-b border-neutral-800">
+    <div class="max-w-xl mx-auto px-4 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <a href="/" class="p-2 rounded-lg bg-neutral-800/80 hover:bg-neutral-700 text-neutral-300 transition" title="Voltar ao Cartão do Desenvolvedor">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+        </a>
+        <div>
+          <h1 class="text-base font-bold text-white flex items-center gap-1.5">
+            ✂️ Barbearia Dom Sandro
+          </h1>
+          <p class="text-xs text-amber-400/90 font-medium">Estilo clássico & cortes modernos • São Miguel</p>
+        </div>
+      </div>
+      
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Aberto
+      </span>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <div class="max-w-xl mx-auto px-4 mt-4">
+    <div class="relative overflow-hidden rounded-3xl p-6 glass-card border border-neutral-800 shadow-2xl">
+      <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+      <p class="text-xs font-bold uppercase tracking-wider text-amber-400">Agende seu horário em 1 minuto</p>
+      <h2 class="text-xl sm:text-2xl font-black text-white mt-1">Corte de cabelo e barba com atendimento de excelência</h2>
+      <p class="text-xs text-neutral-400 mt-2 leading-relaxed">
+        Selecione os serviços desejados, escolha o melhor horário e confirme diretamente no nosso WhatsApp sem filas.
+      </p>
+    </div>
+  </div>
+
+  <!-- Booking Form Container -->
+  <main class="max-w-xl mx-auto px-4 mt-5 space-y-5">
+
+    <!-- Step 1: Escolha o Serviço -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-6 h-6 rounded-full bg-amber-500 text-black font-extrabold text-xs flex items-center justify-center">1</span>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wide">Selecione o Serviço</h3>
+      </div>
+
+      <div class="space-y-2.5" id="services-list">
+        <!-- Serviço 1 -->
+        <label class="service-item flex items-center justify-between p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 cursor-pointer transition">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="selected_service" value="1" onchange="selectService(1)" checked class="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-neutral-900">
+            <div>
+              <p class="text-sm font-bold text-white">Corte Degradê / Fade Moderno</p>
+              <p class="text-xs text-neutral-400">Finalização com navalha e lavagem • 40 min</p>
+            </div>
+          </div>
+          <span class="text-sm font-black text-amber-400">R$ 40,00</span>
+        </label>
+
+        <!-- Serviço 2 -->
+        <label class="service-item flex items-center justify-between p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 cursor-pointer transition">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="selected_service" value="2" onchange="selectService(2)" class="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-neutral-900">
+            <div>
+              <p class="text-sm font-bold text-white">Barba Terapia Completa</p>
+              <p class="text-xs text-neutral-400">Toalha quente, hidratação e alinhamento • 30 min</p>
+            </div>
+          </div>
+          <span class="text-sm font-black text-amber-400">R$ 35,00</span>
+        </label>
+
+        <!-- Serviço 3 -->
+        <label class="service-item flex items-center justify-between p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 cursor-pointer transition">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="selected_service" value="3" onchange="selectService(3)" class="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-neutral-900">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <p class="text-sm font-bold text-white">Combo VIP: Cabelo + Barba</p>
+                <span class="text-[10px] uppercase font-extrabold px-1.5 py-0.5 rounded bg-amber-500 text-black">Mais Pedido</span>
+              </div>
+              <p class="text-xs text-neutral-400">Corte completo, barba terapia e sobrancelha • 1h10</p>
+            </div>
+          </div>
+          <span class="text-sm font-black text-amber-400">R$ 65,00</span>
+        </label>
+
+        <!-- Serviço 4 -->
+        <label class="service-item flex items-center justify-between p-3.5 rounded-xl bg-neutral-900 border border-neutral-800 hover:border-amber-500/50 cursor-pointer transition">
+          <div class="flex items-center gap-3">
+            <input type="radio" name="selected_service" value="4" onchange="selectService(4)" class="w-4 h-4 text-amber-500 focus:ring-amber-500 focus:ring-offset-neutral-900">
+            <div>
+              <p class="text-sm font-bold text-white">Platinado / Luzes / Nevou</p>
+              <p class="text-xs text-neutral-400">Descoloração com proteção capilar • 2h</p>
+            </div>
+          </div>
+          <span class="text-sm font-black text-amber-400">R$ 90,00</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Step 2: Escolha o Barbeiro -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-6 h-6 rounded-full bg-amber-500 text-black font-extrabold text-xs flex items-center justify-center">2</span>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wide">Escolha o Profissional</h3>
+      </div>
+
+      <div class="grid grid-cols-3 gap-2.5">
+        <button type="button" onclick="selectBarber('Jhones (Barbeiro Master)', this)" class="barber-btn active p-3 rounded-xl bg-amber-500 text-black font-bold text-xs flex flex-col items-center gap-1 transition">
+          <span class="text-lg">💈</span>
+          <span>Jhones</span>
+          <span class="text-[10px] opacity-80 font-normal">Master</span>
+        </button>
+
+        <button type="button" onclick="selectBarber('Marcos (Especialista Fade)', this)" class="barber-btn p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1 hover:border-neutral-700 transition">
+          <span class="text-lg">✂️</span>
+          <span>Marcos</span>
+          <span class="text-[10px] text-neutral-400 font-normal">Fade</span>
+        </button>
+
+        <button type="button" onclick="selectBarber('Qualquer Disponível', this)" class="barber-btn p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1 hover:border-neutral-700 transition">
+          <span class="text-lg">⚡</span>
+          <span>Qualquer</span>
+          <span class="text-[10px] text-neutral-400 font-normal">Mais rápido</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Step 3: Data e Horário -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5">
+      <div class="flex items-center gap-2 mb-3">
+        <span class="w-6 h-6 rounded-full bg-amber-500 text-black font-extrabold text-xs flex items-center justify-center">3</span>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wide">Data & Horário</h3>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs text-neutral-400 mb-1">Data do Atendimento</label>
+          <input type="date" id="booking-date" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+        </div>
+
+        <div>
+          <label class="block text-xs text-neutral-400 mb-1.5">Horários Disponíveis</label>
+          <div class="grid grid-cols-4 gap-2" id="time-slots">
+            <button type="button" onclick="selectTime('09:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">09:00</button>
+            <button type="button" onclick="selectTime('10:00', this)" class="time-slot active p-2 rounded-lg bg-amber-500 text-black font-bold text-xs transition">10:00</button>
+            <button type="button" onclick="selectTime('11:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">11:00</button>
+            <button type="button" onclick="selectTime('14:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">14:00</button>
+            <button type="button" onclick="selectTime('15:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">15:00</button>
+            <button type="button" onclick="selectTime('16:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">16:00</button>
+            <button type="button" onclick="selectTime('17:30', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">17:30</button>
+            <button type="button" onclick="selectTime('19:00', this)" class="time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition">19:00</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 4: Identificação do Cliente & Confirmação -->
+    <section class="glass-card rounded-2xl p-4 sm:p-5 space-y-4">
+      <div class="flex items-center gap-2">
+        <span class="w-6 h-6 rounded-full bg-amber-500 text-black font-extrabold text-xs flex items-center justify-center">4</span>
+        <h3 class="text-sm font-bold text-white uppercase tracking-wide">Seus Dados</h3>
+      </div>
+
+      <div>
+        <label class="block text-xs text-neutral-400 mb-1">Seu Nome Completo *</label>
+        <input type="text" id="client-name" placeholder="Ex: Lucas Santana" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+      </div>
+
+      <div>
+        <label class="block text-xs text-neutral-400 mb-1">Seu WhatsApp *</label>
+        <input type="tel" id="client-phone" placeholder="(11) 98765-4321" class="w-full bg-neutral-900 border border-neutral-800 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
+      </div>
+
+      <!-- Resumo do Agendamento -->
+      <div class="p-3.5 rounded-xl bg-neutral-900/90 border border-neutral-800 space-y-1.5 text-xs">
+        <div class="flex justify-between text-neutral-400">
+          <span>Serviço Selecionado:</span>
+          <span class="text-white font-semibold" id="summary-service">Corte Degradê / Fade Moderno</span>
+        </div>
+        <div class="flex justify-between text-neutral-400">
+          <span>Barbeiro:</span>
+          <span class="text-white font-semibold" id="summary-barber">Jhones (Barbeiro Master)</span>
+        </div>
+        <div class="flex justify-between text-neutral-400">
+          <span>Data e Hora:</span>
+          <span class="text-white font-semibold" id="summary-datetime">Hoje às 10:00</span>
+        </div>
+        <div class="flex justify-between text-neutral-300 pt-2 border-t border-neutral-800 font-bold">
+          <span>Investimento:</span>
+          <span class="text-amber-400 text-sm font-black" id="summary-price">R$ 40,00</span>
+        </div>
+      </div>
+
+      <!-- Botão de Confirmação WhatsApp -->
+      <button 
+        type="button"
+        onclick="confirmBooking()" 
+        class="w-full py-4 px-4 rounded-xl font-bold text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] transition flex items-center justify-center gap-2.5 shadow-xl shadow-emerald-950"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        Confirmar Horário no WhatsApp
+      </button>
+    </section>
+
+  </main>
+
+  <script>
+    // Catálogo de Serviços
+    const services = {
+      1: { name: 'Corte Degradê / Fade Moderno', price: 40.00 },
+      2: { name: 'Barba Terapia Completa', price: 35.00 },
+      3: { name: 'Combo VIP: Cabelo + Barba', price: 65.00 },
+      4: { name: 'Platinado / Luzes / Nevou', price: 90.00 }
+    };
+
+    let selectedServiceId = 1;
+    let selectedBarber = 'Jhones (Barbeiro Master)';
+    let selectedTime = '10:00';
+
+    // Sistema de Toasts Animados
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const icon = type === 'success' ? '✅' : 'ℹ️';
+      const bgColor = type === 'success' ? 'bg-neutral-900 border-emerald-500/50 text-emerald-300' : 'bg-neutral-900 border-amber-500/50 text-amber-300';
+      
+      toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl border backdrop-blur-md shadow-2xl shadow-black/80 text-sm font-medium transform transition-all duration-300 opacity-0 -translate-y-2 pointer-events-auto ${bgColor}`;
+      toast.innerHTML = `<span>${icon}</span><span class="flex-1">${message}</span>`;
+      
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', '-translate-y-2');
+      });
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    function selectService(id) {
+      selectedServiceId = id;
+      const s = services[id];
+      document.getElementById('summary-service').textContent = s.name;
+      document.getElementById('summary-price').textContent = `R$ ${s.price.toFixed(2).replace('.', ',')}`;
+      showToast(`Serviço alterado: ${s.name}`, 'info');
+    }
+
+    function selectBarber(barberName, btn) {
+      selectedBarber = barberName;
+      document.querySelectorAll('.barber-btn').forEach(b => {
+        b.className = 'barber-btn p-3 rounded-xl bg-neutral-900 border border-neutral-800 text-neutral-300 font-bold text-xs flex flex-col items-center gap-1 hover:border-neutral-700 transition';
+      });
+      btn.className = 'barber-btn active p-3 rounded-xl bg-amber-500 text-black font-bold text-xs flex flex-col items-center gap-1 transition';
+      document.getElementById('summary-barber').textContent = barberName;
+    }
+
+    function selectTime(time, btn) {
+      selectedTime = time;
+      document.querySelectorAll('.time-slot').forEach(t => {
+        t.className = 'time-slot p-2 rounded-lg bg-neutral-900 border border-neutral-800 text-xs font-semibold text-neutral-300 hover:border-amber-500 transition';
+      });
+      btn.className = 'time-slot active p-2 rounded-lg bg-amber-500 text-black font-bold text-xs transition';
+      updateDateTimeSummary();
+    }
+
+    function updateDateTimeSummary() {
+      const dateVal = document.getElementById('booking-date').value;
+      let dateFormatted = 'Hoje';
+      if (dateVal) {
+        const parts = dateVal.split('-');
+        if (parts.length === 3) {
+          dateFormatted = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+      }
+      document.getElementById('summary-datetime').textContent = `${dateFormatted} às ${selectedTime}`;
+    }
+
+    function confirmBooking() {
+      const clientName = document.getElementById('client-name').value.trim();
+      const clientPhone = document.getElementById('client-phone').value.trim();
+      const dateVal = document.getElementById('booking-date').value;
+
+      if (!clientName) {
+        showToast('Por favor, digite seu nome completo.', 'info');
+        document.getElementById('client-name').focus();
+        return;
+      }
+
+      if (!clientPhone) {
+        showToast('Por favor, informe seu número de WhatsApp.', 'info');
+        document.getElementById('client-phone').focus();
+        return;
+      }
+
+      let dateFormatted = 'Hoje / Imediato';
+      if (dateVal) {
+        const parts = dateVal.split('-');
+        if (parts.length === 3) {
+          dateFormatted = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        }
+      }
+
+      const s = services[selectedServiceId];
+
+      let msg = `✂️ *NOVO AGENDAMENTO - BARBEARIA DOM SANDRO*\n\n`;
+      msg += `👤 *Cliente:* ${clientName}\n`;
+      msg += `📱 *Telefone/Zap:* ${clientPhone}\n`;
+      msg += `💈 *Serviço:* ${s.name}\n`;
+      msg += `✂️ *Profissional:* ${selectedBarber}\n`;
+      msg += `📅 *Data e Horário:* ${dateFormatted} às ${selectedTime}\n`;
+      msg += `💰 *Valor:* R$ ${s.price.toFixed(2).replace('.', ',')}\n\n`;
+      msg += `Olá! Gostaria de confirmar este horário na barbearia.`;
+
+      const whatsappNumber = '5511954532927';
+      const encodedMsg = encodeURIComponent(msg);
+      const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+
+      window.open(url, '_blank');
+      showToast('Redirecionando para o WhatsApp...', 'success');
+    }
+
+    // Inicialização da data padrão (hoje)
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('booking-date');
+    dateInput.value = today;
+    dateInput.min = today;
+    dateInput.addEventListener('change', updateDateTimeSummary);
+    updateDateTimeSummary();
+  </script>
+</body>
+</html>

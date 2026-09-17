@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+==============================================================================
+
+Script de Configuração Automatizada para Antigravity & Vercel
+
+Desenvolvedor: Jhones Sandro (São Miguel Paulista e Região)
+
+==============================================================================
+
+set -e
+
+echo "🚀 Iniciando organização do projeto no Antigravity..."
+
+1. Criação da árvore de diretórios oficial
+
+echo "📁 Criando pastas de demonstração e diretrizes dos agentes..."
+mkdir -p demos/cardapio demos/barbearia .agents/rules
+
+2. Movimentação e renomeação dos arquivos
+
+if [ -f "cartao_dev_local.html" ]; then
+echo "📄 Convertendo cartao_dev_local.html em index.html (página principal)..."
+mv cartao_dev_local.html index.html
+fi
+
+if [ -f "cardapio_digital_delivery.html" ]; then
+echo "🍔 Movendo cardapio_digital_delivery.html para demos/cardapio/index.html..."
+mv cardapio_digital_delivery.html demos/cardapio/index.html
+fi
+
+if [ -f "landing_page_exemplo.html" ]; then
+echo "✂️ Movendo landing_page_exemplo.html para demos/barbearia/index.html..."
+mv landing_page_exemplo.html demos/barbearia/index.html
+fi
+
+3. Geração do vercel.json para URLs amigáveis
+
+echo "⚙️ Gerando vercel.json com regras de rotas limpas..."
+cat << 'EOF' > vercel.json
+{
+"version": 2,
+"cleanUrls": true,
+"trailingSlash": false,
+"routes": [
+{ "src": "/demos/cardapio", "dest": "/demos/cardapio/index.html" },
+{ "src": "/demos/barbearia", "dest": "/demos/barbearia/index.html" },
+{ "src": "/(.*)", "dest": "/$1" }
+]
+}
+EOF
+
+4. Criação da regra de inteligência do agente (.agents/rules/padrao-comercio.md)
+
+echo "🧠 Configurando regra de agente em .agents/rules/padrao-comercio.md..."
+cat << 'EOF' > .agents/rules/padrao-comercio.md
+
+Diretrizes de Projeto: Soluções Comerciais Locais
+
+Arquitetura: Mantenha os templates em arquivo único (.html) utilizando Tailwind CSS via CDN.
+
+Performance Mobile: O tempo de primeiro carregamento em celulares 4G deve ser inferior a 1.5s.
+
+Integração WhatsApp: Dispare mensagens através de links diretos no padrão https://wa.me/55... com encodeURIComponent em todos os parâmetros de texto.
+
+Feedback ao Usuário: Nunca utilize alert() nativo do navegador; utilize toasts flutuantes animados e acessíveis.
+
+Identidade: Visual moderno (glassmorphism/dark mode) e tipografia legível para comércios de bairro.
+EOF
+
+echo ""
+echo "✅ Estrutura configurada com sucesso pelo Antigravity!"
+echo "--------------------------------------------------------"
+echo "👉 Página principal: ./index.html"
+echo "👉 Demo Cardápio:    ./demos/cardapio/index.html (rota: /demos/cardapio)"
+echo "👉 Demo Barbearia:   ./demos/barbearia/index.html (rota: /demos/barbearia)"
+echo "👉 Foto de perfil:   ./1000904715.jpg"
+echo "--------------------------------------------------------"

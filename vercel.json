@@ -1,0 +1,10 @@
+﻿{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/demos/cardapio", "dest": "/demos/cardapio/index.html" },
+    { "src": "/demos/barbearia", "dest": "/demos/barbearia/index.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

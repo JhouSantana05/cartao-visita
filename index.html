@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jhones Sandro | Cartão Digital & Soluções Comerciais</title>
+  <meta name="description" content="Desenvolvedor de soluções comerciais para São Miguel Paulista e Região. Páginas de alta conversão, cardápios e agendamentos pelo WhatsApp.">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col items-center justify-center p-4 selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 z-50 flex flex-col gap-2 pointer-events-none transition-all duration-300 w-full max-w-xs px-4" role="status" aria-live="polite"></div>
+
+  <!-- Main Container -->
+  <main class="w-full max-w-md mx-auto relative z-10 py-6">
+    <!-- Ambient Glow Background -->
+    <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-72 h-72 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <div class="absolute -bottom-10 right-0 w-60 h-60 bg-emerald-600/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
+    <div class="glass-card rounded-3xl p-6 sm:p-8 shadow-2xl shadow-black/80 flex flex-col items-center text-center">
+      
+      <!-- Profile Photo with Status Badge -->
+      <div class="relative mb-5 group">
+        <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-emerald-500 rounded-full blur opacity-75 group-hover:opacity-100 transition duration-500"></div>
+        <img 
+          src="./1000904715.jpg" 
+          alt="Foto de Jhones Sandro" 
+          onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80';"
+          class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-slate-700/80 shadow-inner"
+          loading="eager"
+        >
+        <!-- Online Status Indicator -->
+        <span class="absolute bottom-1 right-2 w-4 h-4 bg-emerald-500 border-2 border-slate-900 rounded-full" title="Disponível para projetos"></span>
+      </div>
+
+      <!-- Name & Bio -->
+      <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center gap-1.5">
+        Jhones Sandro
+        <svg class="w-5 h-5 text-indigo-400 fill-current" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      </h1>
+      <p class="text-xs font-semibold uppercase tracking-wider text-indigo-400 mt-1">
+        Desenvolvedor Web • Soluções Locais
+      </p>
+      
+      <!-- Region Badge -->
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 mt-3 rounded-full text-xs font-medium bg-slate-800/80 border border-slate-700/60 text-slate-300">
+        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        São Miguel Paulista & Região (Zona Leste - SP)
+      </div>
+
+      <p class="text-sm text-slate-300/90 mt-4 leading-relaxed">
+        Ajudo comércios e prestadores de serviços a faturarem mais com páginas ultra-rápidas, cardápios interativos e pedidos automáticos pelo WhatsApp.
+      </p>
+
+      <!-- Primary Action: WhatsApp Direct -->
+      <div class="w-full mt-6 space-y-3">
+        <a 
+          href="https://wa.me/5511954532927?text=Ol%C3%A1%20Jhones%2C%20vi%20seu%20cart%C3%A3o%20digital%20e%20gostaria%20de%20um%20or%C3%A7amento%20para%20o%20meu%20neg%C3%B3cio!" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="w-full flex items-center justify-center gap-2.5 py-3.5 px-5 rounded-xl font-semibold text-white bg-emerald-600 hover:bg-emerald-500 active:scale-[0.98] transition-all duration-150 shadow-lg shadow-emerald-900/40"
+        >
+          <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+          Conversar pelo WhatsApp
+        </a>
+
+        <!-- Section: Demonstrações Interativas -->
+        <div class="pt-2 text-left">
+          <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-1">Demonstrações ao Vivo:</span>
+        </div>
+
+        <!-- Demo Cardápio -->
+        <a 
+          href="/demos/cardapio" 
+          class="w-full flex items-center justify-between p-3.5 rounded-xl glass hover:bg-slate-800/80 active:scale-[0.98] transition duration-150 border border-slate-700/50 group"
+        >
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-lg bg-amber-500/10 text-amber-400 group-hover:scale-110 transition duration-150">🍔</span>
+            <div class="text-left">
+              <p class="text-sm font-semibold text-white group-hover:text-amber-400 transition">Cardápio Digital Delivery</p>
+              <p class="text-xs text-slate-400">Seleção de itens e pedido via WhatsApp</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <!-- Demo Barbearia -->
+        <a 
+          href="/demos/barbearia" 
+          class="w-full flex items-center justify-between p-3.5 rounded-xl glass hover:bg-slate-800/80 active:scale-[0.98] transition duration-150 border border-slate-700/50 group"
+        >
+          <div class="flex items-center gap-3">
+            <span class="text-2xl p-2 rounded-lg bg-indigo-500/10 text-indigo-400 group-hover:scale-110 transition duration-150">✂️</span>
+            <div class="text-left">
+              <p class="text-sm font-semibold text-white group-hover:text-indigo-400 transition">Barbearia & Agendamento</p>
+              <p class="text-xs text-slate-400">Serviços, horários e confirmação direta</p>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-slate-400 group-hover:text-white group-hover:translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </a>
+
+        <!-- Utility Buttons: Salvar Contato & Compartilhar -->
+        <div class="grid grid-cols-2 gap-3 pt-2">
+          <button 
+            type="button"
+            onclick="downloadVCard()" 
+            class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl glass hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-700/60 active:scale-95 transition"
+          >
+            <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Salvar Contato
+          </button>
+          
+          <button 
+            type="button"
+            onclick="shareCard()" 
+            class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl glass hover:bg-slate-800 text-xs font-medium text-slate-200 border border-slate-700/60 active:scale-95 transition"
+          >
+            <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+            Compartilhar
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Footer Info -->
+      <footer class="mt-8 pt-6 border-t border-slate-800/80 w-full text-center">
+        <p class="text-[11px] text-slate-500">
+          © 2026 Jhones Sandro • Feito sob medida para negócios locais.
+        </p>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    // Sistema de Toasts Animados e Acessíveis
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const icon = type === 'success' ? '✅' : 'ℹ️';
+      const bgColor = type === 'success' ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-200' : 'bg-slate-900/90 border-indigo-500/50 text-indigo-200';
+      
+      toast.className = `flex items-center gap-2.5 px-4 py-3 rounded-xl border backdrop-blur-md shadow-lg shadow-black/50 text-sm font-medium transform transition-all duration-300 opacity-0 -translate-y-2 pointer-events-auto ${bgColor}`;
+      toast.innerHTML = `<span>${icon}</span><span class="flex-1">${message}</span>`;
+      
+      container.appendChild(toast);
+      
+      requestAnimationFrame(() => {
+        toast.classList.remove('opacity-0', '-translate-y-2');
+      });
+      
+      setTimeout(() => {
+        toast.classList.add('opacity-0', '-translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Gerador de vCard para salvar direto no celular
+    function downloadVCard() {
+      const vcardData = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'FN:Jhones Sandro - Dev Soluções Locais',
+        'TITLE:Desenvolvedor Web',
+        'TEL;TYPE=CELL,VOICE:+5511954532927',
+        'NOTE:Desenvolvimento de cardápios, páginas e agendamentos para comércios locais (São Miguel Paulista)',
+        'URL:https://cartao-visita.vercel.app',
+        'END:VCARD'
+      ].join('\r\n');
+
+      const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Jhones_Sandro_Dev.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      showToast('Contato pronto para salvar na sua agenda!', 'success');
+    }
+
+    // Compartilhamento com Fallback para Copiar Link
+    async function shareCard() {
+      const shareData = {
+        title: 'Jhones Sandro - Cartão Digital',
+        text: 'Conheça as soluções web de Jhones Sandro para comércios locais e prestadores de serviços!',
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+          showToast('Compartilhado com sucesso!', 'success');
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            fallbackCopyLink();
+          }
+        }
+      } else {
+        fallbackCopyLink();
+      }
+    }
+
+    function fallbackCopyLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Link copiado para a área de transferência!', 'success');
+      }).catch(() => {
+        showToast('Não foi possível copiar o link.', 'info');
+      });
+    }
+  </script>
+</body>
+</html>
