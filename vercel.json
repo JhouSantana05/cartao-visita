@@ -1,10 +1,7 @@
-﻿{
-  "version": 2,
+{
   "cleanUrls": true,
-  "trailingSlash": false,
-  "routes": [
-    { "src": "/demos/cardapio", "dest": "/demos/cardapio/index.html" },
-    { "src": "/demos/barbearia", "dest": "/demos/barbearia/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "rewrites": [
+    { "source": "/demos/cardapio", "destination": "/demos/cardapio/index.html" },
+    { "source": "/demos/barbearia", "destination": "/demos/barbearia/index.html" }
   ]
 }
